@@ -11,6 +11,8 @@ import (
 	"github.com/google/gopacket/layers"
 	"github.com/google/gopacket/pcap"
 	"github.com/google/gopacket/pcapgo"
+	"os/exec"
+	"strconv"
 )
 
 var (
@@ -28,11 +30,29 @@ var (
 func init() {
 	flag.BoolVar(&should_save_pcap, "pcap", false, "Wrong")
 	flag.BoolVar(&should_save_pcap, "p", false, "Wrong")
-	flag.StringVar(&device, "interface", "eth0", "Wrong")
+	flag.StringVar(&device, "i", "wlp4s0", "Wrong")
 }
 
 func main() {
 	flag.Parse()
+
+	cmd := exec.Command("id", "-u")
+	output, err := cmd.Output()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	i, err := strconv.Atoi(string(output[:len(output)-1]))
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if i != 0 {
+		log.Fatal("This program must be run as root! (sudo)")
+		os.Exit(1)
+	}
 
 	if should_save_pcap {
 		f, _ := os.Create("captured.pcap")
@@ -40,7 +60,7 @@ func main() {
 		file_writer.WriteFileHeader(snapshotLen, layers.LinkTypeEthernet)
 		defer f.Close()
 	}
-	// Open device
+
 	handle, err = pcap.OpenLive(device, snapshot_len, promiscuous, timeout)
 	if err != nil {
 		log.Fatal(err)
