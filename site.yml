@@ -1,13 +1,35 @@
 ---
 
-- hosts: router
+- hosts: routers
   roles:
     - openbsd-ospf
 
-- hosts: zones
+- hosts: zone0
   roles:
     - linux-quagga
+  vars:
+    router: 172.0.1.2
+
+- hosts: zone1
+  roles:
+    - linux-quagga
+  vars:
+    router: 172.0.2.2
 
 - hosts: client
   roles:
     - linux-client
+  vars:
+    router: 10.0.10.2
+
+- hosts: client2
+  roles:
+    - linux-client
+  vars:
+    router: 10.0.20.2
+
+- hosts: client3
+  roles:
+    - linux-client
+  vars:
+    router: 10.0.20.2

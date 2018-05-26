@@ -53,7 +53,7 @@
   changed_when: False
 
 - name: set default route
-  shell: ip route delete default && ip route add default via 172.0.1.2
+  shell: "ip route delete default && ip route add default via {{ router }}"
   when: "'10.0.2.2' in default_route.stdout"
 
 - name: check if 172.0.3.10 has been added
