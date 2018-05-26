@@ -15,9 +15,8 @@
 
 
 - name: Restart DNS server service
-  service: >
-    name=dnsmasq
-    state=restarted
+  shell: "/etc/init.d/dnsmasq restart"
+  when: dns
 
 - name: ensure quagga is installed
   apt: >
