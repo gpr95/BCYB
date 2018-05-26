@@ -26,7 +26,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     router.vm.provision "shell",
-    inline: "echo 'nameserver 8.8.8.8' > /etc/resolv.conf"
+    inline: "echo 'nameserver 172.0.1.10' > /etc/resolv.conf"
 
     router.vm.provision "shell",
     inline: "export PKG_PATH=http://ftp.eu.openbsd.org/pub/OpenBSD/`uname -r`/packages/`arch -s` && pkg_add python-2.7.8"
@@ -50,7 +50,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     router2.vm.provision "shell",
-    inline: "echo 'nameserver 8.8.8.8' > /etc/resolv.conf"
+    inline: "echo 'nameserver 172.0.1.10' > /etc/resolv.conf"
 
     router2.vm.provision "shell",
     inline: "export PKG_PATH=http://ftp.eu.openbsd.org/pub/OpenBSD/`uname -r`/packages/`arch -s` && pkg_add python-2.7.8"

@@ -1,5 +1,24 @@
 ---
 
+- name: Install dnsmasq server
+  apt: >
+    name=dnsmasq
+    state=present
+  when: dns
+
+- name: Setup DHCP configuration
+  copy:
+    src: "{{ role_path }}/files/dnsmasq.conf"
+    dest: /etc/dnsmasq.conf
+    force: yes
+  when: dns
+
+
+- name: Restart DNS server service
+  service: >
+    name=dnsmasq
+    state=restarted
+
 - name: ensure quagga is installed
   apt: >
     name=quagga

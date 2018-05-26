@@ -8,3 +8,9 @@
 - name: set default route
   shell: "ip route delete default && ip route add default via {{ router }}"
   when: "'10.0.2.2' in default_route.stdout"
+
+- name: Add DNS server
+  copy:
+    src: "{{ role_path }}/files/resolv.conf"
+    dest: /etc/resolv.conf
+    force: yes

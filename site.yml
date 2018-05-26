@@ -9,12 +9,14 @@
     - linux-quagga
   vars:
     router: 172.0.1.2
+    dns: true
 
 - hosts: zone1
   roles:
     - linux-quagga
   vars:
     router: 172.0.2.2
+    dns: false
 
 - hosts: client
   roles:

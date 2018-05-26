@@ -54,3 +54,9 @@
 - name: start ospfd
   command: /usr/sbin/ospfd
   when: ospfd.rc != 0
+
+- name: Add DNS server
+  copy:
+    src: "{{ role_path }}/files/resolv.conf"
+    dest: /etc/resolv.conf
+    force: yes
