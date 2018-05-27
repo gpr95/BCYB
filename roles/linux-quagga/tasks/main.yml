@@ -111,4 +111,4 @@
     - [ 'images', 'tests', 'slides' ]
 
 - name: Run HTTP server
-  shell: "nohup python -m SimpleHTTPServer > webapp.log &"
+  shell: "sleep 20s; nohup python -m SimpleHTTPServer > webapp.log &"

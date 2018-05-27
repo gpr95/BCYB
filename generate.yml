@@ -1,0 +1,9 @@
+---
+
+- hosts: client-zone0
+  roles:
+    - generate-traffic
+
+- hosts: clients-zone1
+  roles:
+    - generate-traffic
