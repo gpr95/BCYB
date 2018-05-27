@@ -12,4 +12,4 @@ c1 ansible_ssh_host=10.0.10.10
 
 [clients-zone1]
 c2 ansible_ssh_host=10.0.20.10
-c2 ansible_ssh_host=10.0.20.11
+c3 ansible_ssh_host=10.0.20.11

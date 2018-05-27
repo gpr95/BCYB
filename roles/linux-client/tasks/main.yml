@@ -18,7 +18,7 @@
 - name: Copy traffic generation file
   template:
     src: "{{ role_path }}/files/config.py.j2"
-    dest: config.py
+    dest: /home/vagrant/config.py
     force: yes
 
 - name: Copy python scripts
