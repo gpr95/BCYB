@@ -28,3 +28,4 @@
     force: yes
   with_items:
     - gen.py
+    - sniffer
