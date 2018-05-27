@@ -1,17 +1,15 @@
 [zone0]
 zone0 ansible_ssh_host=172.0.1.10
 [zone1]
-zone1 ansible_ssh_host=172.0.2.10
+zone1 ansible_ssh_host=172.0.1.11
 
 [routers]
-router ansible_password=vagrant ansible_ssh_host=10.0.10.2 ansible_python_interpreter=/usr/local/bin/python2.7
-router2 ansible_password=vagrant ansible_ssh_host=10.0.20.2 ansible_python_interpreter=/usr/local/bin/python2.7
+r1 ansible_password=vagrant ansible_ssh_host=10.0.10.2 ansible_python_interpreter=/usr/local/bin/python2.7
+r2 ansible_password=vagrant ansible_ssh_host=10.0.20.2 ansible_python_interpreter=/usr/local/bin/python2.7
 
-[client]
-client ansible_ssh_host=10.0.10.10
+[client-zone0]
+c1 ansible_ssh_host=10.0.10.10
 
-[client2]
-client2 ansible_ssh_host=10.0.20.10
-
-[client3]
-client3 ansible_ssh_host=10.0.20.11
+[clients-zone1]
+c2 ansible_ssh_host=10.0.20.10
+c2 ansible_ssh_host=10.0.20.11

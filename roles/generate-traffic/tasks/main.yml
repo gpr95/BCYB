@@ -1,0 +1,4 @@
+---
+
+- name: Generate traffic
+  shell: "nohup python gen.py & >> generation.log &"

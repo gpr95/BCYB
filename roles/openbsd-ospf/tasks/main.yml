@@ -49,6 +49,8 @@
   command: pgrep -f ospfd
   register: ospfd
   changed_when: False
+  retries: 10
+  delay: 10
   ignore_errors: True
 
 - name: start ospfd

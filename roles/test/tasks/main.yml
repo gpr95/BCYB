@@ -1,0 +1,5 @@
+---
+
+
+- name: Run HTTP server
+  shell: "nohup python -m SimpleHTTPServer > webapp.log &"

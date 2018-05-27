@@ -6,13 +6,19 @@
     state=present
   when: dns
 
-- name: Setup DHCP configuration
+- name: Setup DNS configuration
   copy:
     src: "{{ role_path }}/files/dnsmasq.conf"
     dest: /etc/dnsmasq.conf
     force: yes
   when: dns
 
+- name: Setup DHCP configuration
+  copy:
+    src: "{{ role_path }}/files/dhclient.conf"
+    dest: /etc/dhcp/dhclient.conf
+    force: yes
+  when: dns
 
 - name: Restart DNS server service
   shell: "/etc/init.d/dnsmasq restart"
@@ -70,16 +76,39 @@
   register: default_route
   changed_when: False
 
+- name: remove default route
+  shell: "ip route delete default"
+  when: "'10.0.2.2' in default_route.stdout"
+
+- name: set default route to 10.0.10.0/24
+  shell: "ip route add 10.0.10.0/24 via 172.0.1.2"
+  when: "'10.0.2.2' in default_route.stdout"
+
+- name: set default route to 10.0.20.0/24
+  shell: "ip route add 10.0.20.0/24 via 172.0.2.2"
+  when: "'10.0.2.2' in default_route.stdout"
+
 - name: set default route
-  shell: "ip route delete default && ip route add default via {{ router }}"
+  shell: "ip route add default via {{ router }}"
   when: "'10.0.2.2' in default_route.stdout"
 
 - name: check if 172.0.3.10 has been added
   shell: ip address show | grep 172.0.3.10
   register: vip
-  ignore_errors: True
   changed_when: False
+  retries: 10
+  delay: 10
+  ignore_errors: True
 
 - name: add 172.0.3.10 as vip
   shell: ip address add 172.0.3.10 dev eth1
   when: vip.rc != 0
+
+- name: Create directories
+  shell: "mkdir -p F{{ item[0] }}/{{ item[1]}}/file.txt"
+  with_nested:
+    - [ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20' ]
+    - [ 'images', 'tests', 'slides' ]
+
+- name: Run HTTP server
+  shell: "nohup python -m SimpleHTTPServer > webapp.log &"

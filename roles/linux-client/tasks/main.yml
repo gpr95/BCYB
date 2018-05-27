@@ -10,7 +10,21 @@
   when: "'10.0.2.2' in default_route.stdout"
 
 - name: Add DNS server
-  copy:
-    src: "{{ role_path }}/files/resolv.conf"
+  template:
+    src: "{{ role_path }}/files/resolv.conf.j2"
     dest: /etc/resolv.conf
     force: yes
+
+- name: Copy traffic generation file
+  template:
+    src: "{{ role_path }}/files/config.py.j2"
+    dest: config.py
+    force: yes
+
+- name: Copy python scripts
+  copy:
+    src: "{{ role_path }}/files/{{ item }}"
+    dest: "{{ item }}"
+    force: yes
+  with_items:
+    - gen.py
