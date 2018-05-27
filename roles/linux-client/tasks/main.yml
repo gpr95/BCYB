@@ -24,7 +24,7 @@
 - name: Copy python scripts
   copy:
     src: "{{ role_path }}/files/{{ item }}"
-    dest: "{{ item }}"
+    dest: "/home/vagrant/{{ item }}"
     force: yes
   with_items:
     - gen.py
